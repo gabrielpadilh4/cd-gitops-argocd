@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-demo-app
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: argocd-demo-app
+  template:
+    metadata:
+      labels:
+        app: argocd-demo-app
+    spec:
+      containers:
+      - name: argocd-demo-app
+        image: gabrielpadilha/argocd-demo
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8400
