@@ -3,9 +3,7 @@ name: CD
 on:
   push:
     branches: [main]
-defaults:
-  run:
-    working-directory: ./demo
+
 jobs:
   build:
     name: Build
@@ -19,5 +17,6 @@ jobs:
         with:
           username: gabrielpadilha
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          dockerfile: ./demo/Dockerfile
           repository: gabrielpadilha/argocd-demo
           tags: ${{ github.sha }}, latest
