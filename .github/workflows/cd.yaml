@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+        run: chmod +x ./demo/gradlew
 
       - name: build image and push to docker hub
         uses: docker/build-push-action@v1.1.0
