@@ -9,4 +9,4 @@ namespace: argocd-demo
 images:
 - name: argocd-demo-app
   newName: gabrielpadilha/argocd-demo
-  newTag: ae3f45f3f909b26309a0b783b1d879a1e1783a76
+  newTag: d83275e82baaa00b8b35161246fe2ae2505edd49
