@@ -39,7 +39,7 @@ jobs:
 
       - name: update k8s
         run: |
-          cd /demo/k8s
+          cd ./demo/k8s
           kustomize edit set image argocd-demo-app=gabrielpadilha/argocd-demo:${{ github.sha }}
           cat kustomization.yaml
 
