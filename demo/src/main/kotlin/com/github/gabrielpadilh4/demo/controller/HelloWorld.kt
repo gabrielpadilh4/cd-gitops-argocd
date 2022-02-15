@@ -10,6 +10,6 @@ class HelloWorld {
 
     @GetMapping
     fun helloWorld(): String {
-        return "Hello Argocd"
+        return "Hello Argocd test"
     }
 }
