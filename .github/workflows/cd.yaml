@@ -15,7 +15,6 @@ jobs:
       - name: Give gradlew permissions
         run: chmod +x ./demo/gradlew
 
-
       - name: build image and push to docker hub
         uses: docker/build-push-action@v1.1.0
         with:
@@ -24,3 +23,32 @@ jobs:
           dockerfile: ./demo/Dockerfile
           repository: gabrielpadilha/argocd-demo
           tags: ${{ github.sha }}, latest
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build  
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize_version: v3.6.1
+
+      - name: update k8s
+        run: |
+          cd /demo/k8s
+          kustomize edit set image argocd-demo-app=gabrielpadilha/argocd-demo:${{ github.sha }}
+          cat kustomization.yaml
+
+      - name: commit k8s
+        run: |
+          git config --local user.email "cd-action@github.com"
+          git config --local user.name "Deploy action"
+          git commit -am "changed image tag"
+
+      - name: push
+        uses: ad-m/github-push-action@master       
+
